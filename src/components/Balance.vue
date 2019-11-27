@@ -1,7 +1,7 @@
 <template>
   <div class="ba">
     <span class="ba-title">Balance</span>
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName" @tab-click="handleClick" class="ba-tabs">
       <el-tab-pane label="Deposit" name="deposit">
         <Deposit />
       </el-tab-pane>
@@ -16,7 +16,7 @@
 import Deposit from '@/components/Deposit'
 import Withdraw from '@/components/Withdraw'
 export default {
-  components: { Deposit, Withdraw  },
+  components: { Deposit, Withdraw },
   data() {
     return {
       activeName: 'deposit'
@@ -34,15 +34,26 @@ export default {
   color: var(--page-text);
   flex: 1;
   font-size: 12px;
-  overflow-y: auto;
   padding-bottom: 50px;
+  position: relative;
 }
 
 .ba-title {
+  background-color: var(--container-top);
   color: var(--page-text-highlight);
+  width: 100%;
+  box-sizing: border-box;
   padding: 10px;
   display: inline-block;
   font-size: 16px;
+  position: absolute;
+}
+
+.ba-tabs {
+  position: absolute;
+  top: 38px;
+  bottom: 0;
+  overflow-y: auto;
 }
 
 .ba >>> .el-tabs--border-card {
@@ -76,7 +87,7 @@ export default {
   height: 1px;
 }
 
-.ba >>> .el-tabs__active-bar{
+.ba >>> .el-tabs__active-bar {
   height: 3px;
 }
 </style>
