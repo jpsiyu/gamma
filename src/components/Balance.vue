@@ -25,7 +25,6 @@ export default {
 .ba{
   background: var(--container-bg);
   color: var(--page-text);
-  margin: 5px 0;
-  height: 50%;
+  flex: 1;
 }
 </style>
