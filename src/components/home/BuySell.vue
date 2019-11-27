@@ -1,6 +1,7 @@
 <template>
   <div class="bs">
     <span class="bs-title">Buy/Sell</span>
+    <el-tabs></el-tabs>
   </div>
 </template>
 

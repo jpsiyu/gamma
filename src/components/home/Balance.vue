@@ -1,7 +1,7 @@
 <template>
   <div class="ba">
     <span class="ba-title">Balance</span>
-    <el-tabs v-model="activeName" @tab-click="handleClick" class="ba-tabs custom-tab">
+    <el-tabs v-model="activeName" @tab-click="handleClick" class="ba-tabs elcustom-tabs">
       <el-tab-pane label="Deposit" name="deposit">
         <Deposit />
       </el-tab-pane>
@@ -57,4 +57,4 @@ export default {
 }
 </style>
 
-<style src="@/assets/el-custom.css" scoped /> 
+<style src="@/assets/elcustom.css" scoped /> 
