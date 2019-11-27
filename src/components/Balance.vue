@@ -70,4 +70,13 @@ export default {
 .ba >>> .el-tabs__item:hover {
   color: var(--page-text-highlight);
 }
+
+.ba >>> .el-tabs__nav-wrap::after {
+  background-color: var(--page-text);
+  height: 1px;
+}
+
+.ba >>> .el-tabs__active-bar{
+  height: 3px;
+}
 </style>
