@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import Balance from '@/components/Balance'
-import BuySell from '@/components/BuySell'
-import OrderBook from '@/components/OrderBook'
-import PriceChart from '@/components/PriceChart'
-import Transactions from '@/components/Transactions'
-import TradesVolumn from '@/components/TradesVolumn'
-import Updates from '@/components/Updates'
+import Balance from '@/components/home/Balance'
+import BuySell from '@/components/home/BuySell'
+import OrderBook from '@/components/home/OrderBook'
+import PriceChart from '@/components/home/PriceChart'
+import Transactions from '@/components/home/Transactions'
+import TradesVolumn from '@/components/home/TradesVolumn'
+import Updates from '@/components/home/Updates'
 export default {
   components: { Balance, BuySell, OrderBook, PriceChart, Transactions, TradesVolumn, Updates }
 }

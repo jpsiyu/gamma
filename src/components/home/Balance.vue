@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Deposit from '@/components/Deposit'
-import Withdraw from '@/components/Withdraw'
+import Deposit from '@/components/home/Deposit'
+import Withdraw from '@/components/home/Withdraw'
 export default {
   components: { Deposit, Withdraw },
   data() {
