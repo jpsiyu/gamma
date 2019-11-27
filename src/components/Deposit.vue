@@ -34,6 +34,9 @@
         <el-button>Deposit</el-button>
       </div>
     </div>
+    <p
+      class="dp-note"
+    >Make sure PPT is the token you actually want to trade. Multiple tokens can share the same name.</p>
   </div>
 </template>
 
@@ -54,8 +57,8 @@ export default {
   overflow-y: auto;
 }
 
-.dp-part:last-child {
-  margin-top: 20px;
+.dp-part:nth-child(2) {
+  margin-top: 50px;
 }
 
 .dp-part__title {
@@ -69,12 +72,19 @@ export default {
   padding: 5px 0;
 }
 
-.dp-balance:first-child {
-  border-bottom: 1px solid var(--page-text);
+.dp-balance:nth-child(2) {
+  border-top: 1px solid var(--page-text);
+  color: var(--page-text-highlight);
 }
 
 .dp-inline {
   display: flex;
+}
+
+.dp-note {
+  word-break: keep-all;
+  font-size: 16px;
+  margin: 30px 0;
 }
 
 .dp >>> .el-button {
