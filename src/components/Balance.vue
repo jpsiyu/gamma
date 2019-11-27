@@ -5,15 +5,18 @@
       <el-tab-pane label="Deposit" name="deposit">
         <Deposit />
       </el-tab-pane>
-      <el-tab-pane label="Withdraw" name="withdraw" />
+      <el-tab-pane label="Withdraw" name="withdraw">
+        <Withdraw />
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
 import Deposit from '@/components/Deposit'
+import Withdraw from '@/components/Withdraw'
 export default {
-  components: { Deposit },
+  components: { Deposit, Withdraw  },
   data() {
     return {
       activeName: 'deposit'
