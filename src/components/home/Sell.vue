@@ -3,12 +3,12 @@
     <el-form :model="form" :ref="form" label-position="top">
       <el-form-item label="Amount to sell" prop="amount">
         <el-input v-model="form.amount">
-          <span slot="append">PPT</span>
+          <span slot="append">{{pairArray[0]}}</span>
         </el-input>
       </el-form-item>
       <el-form-item label="Price" prop="price">
         <el-input v-model="form.price">
-          <span slot="append">ETH</span>
+          <span slot="append">{{pairArray[1]}}</span>
         </el-input>
       </el-form-item>
       <el-form-item label="Total" prop="total">
@@ -36,6 +36,13 @@ export default {
       }
     }
   },
+  computed: {
+    pairArray() {
+      const pair = this.$route.params.pair
+      const pairArray = pair.split('_')
+      return pairArray
+    }
+  }
 }
 </script>
 

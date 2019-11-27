@@ -2,9 +2,9 @@
   <div class="ob">
     <span class="ob-title">Order Book</span>
     <div class="ob-pair">
-      <span>PPT</span>
-      <span>PPT/ETH</span>
-      <span>ETH</span>
+      <span>{{pairArray[0]}}</span>
+      <span>{{pairArray[0]}}/{{pairArray[1]}}</span>
+      <span>{{pairArray[1]}}</span>
     </div>
     <div class="ob-book">
       <div class="ob-sell">
@@ -28,6 +28,11 @@
 <script>
 export default {
   computed: {
+    pairArray() {
+      const pair = this.$route.params.pair
+      const pairArray = pair.split('_')
+      return pairArray
+    },
     buyList() {
       return [
         { amount: 12, price: 0.4, total: 4.8 },
@@ -126,7 +131,7 @@ export default {
   overflow-y: auto;
 }
 
-.ob-buy{
+.ob-buy {
   overflow-y: auto;
   flex: 1;
   border-top: 3px solid var(--page-text);
@@ -141,15 +146,15 @@ export default {
   cursor: pointer;
 }
 
-.ob-item:hover{
+.ob-item:hover {
   background-color: var(--page-bg);
 }
 
-.ob-buy .ob-item{
+.ob-buy .ob-item {
   color: var(--color-rise);
 }
 
-.ob-sell .ob-item{
+.ob-sell .ob-item {
   color: var(--color-fall);
 }
 </style>

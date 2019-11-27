@@ -9,7 +9,7 @@ const RouterLayout = createRouterLayout(layout => {
   return import('@/layouts/' + layout + '.vue')
 })
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -19,3 +19,14 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, form, next) => {
+  if (to.path === '/') {
+    next('/PPT_ETH')
+    return
+  }
+
+  next()
+})
+
+export default router

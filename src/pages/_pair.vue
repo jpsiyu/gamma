@@ -33,7 +33,10 @@ import Transactions from '@/components/home/Transactions'
 import TradesVolumn from '@/components/home/TradesVolumn'
 import Updates from '@/components/home/Updates'
 export default {
-  components: { Balance, BuySell, OrderBook, PriceChart, Transactions, TradesVolumn, Updates }
+  components: { Balance, BuySell, OrderBook, PriceChart, Transactions, TradesVolumn, Updates },
+  created(){
+    console.log(this.$route.params.pair)
+  }
 }
 </script>
 

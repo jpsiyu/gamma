@@ -7,11 +7,11 @@
         <span>Gamma</span>
       </div>
       <div class="wd-balance">
-        <span>PPT</span>
+        <span>{{pairArray[0]}}</span>
         <span>0.000</span>
         <span>0.000</span>
       </div>
-      <span class="wd-part__title">Widthdraw PPT</span>
+      <span class="wd-part__title">Widthdraw {{pairArray[0]}}</span>
       <div class="wd-inline">
         <el-input v-model="amountA" placeholder="Amount"></el-input>
         <el-button>Widthdraw</el-button>
@@ -24,11 +24,11 @@
         <span>Gamma</span>
       </div>
       <div class="wd-balance">
-        <span>ETH</span>
+        <span>{{pairArray[1]}}</span>
         <span>0.000</span>
         <span>0.000</span>
       </div>
-      <span class="wd-part__title">Widthdraw ETH</span>
+      <span class="wd-part__title">Widthdraw {{pairArray[1]}}</span>
       <div class="wd-inline">
         <el-input v-model="amountB" placeholder="Amount"></el-input>
         <el-button>Widthdraw</el-button>
@@ -36,7 +36,7 @@
     </div>
     <p
       class="wd-note"
-    >Make sure PPT is the token you actually want to trade. Multiple tokens can share the same name.</p>
+    >Make sure {{pairArray[0]}} is the token you actually want to trade. Multiple tokens can share the same name.</p>
   </div>
 </template>
 
@@ -48,6 +48,13 @@ export default {
       amountB: '',
     }
   },
+  computed: {
+    pairArray() {
+      const pair = this.$route.params.pair
+      const pairArray = pair.split('_')
+      return pairArray
+    }
+  }
 }
 </script>
 
