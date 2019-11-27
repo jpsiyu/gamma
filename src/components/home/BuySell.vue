@@ -1,15 +1,30 @@
 <template>
   <div class="bs">
     <span class="bs-title">Buy/Sell</span>
-    <el-tabs></el-tabs>
+    <el-tabs v-model="activeName" class="bs-tabs elcustom-tabs">
+      <el-tab-pane label="Buy Order" name="buy"></el-tab-pane>
+      <el-tab-pane label="Sell Order" name="sell"></el-tab-pane>
+    </el-tabs>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      activeName: ''
+    }
+  },
+}
+</script>
 
 <style scoped>
 .bs {
   background: var(--container-bg);
   color: var(--page-text);
   flex: 1;
+  font-size: 12px;
+  padding-bottom: 50px;
   position: relative;
 }
 
@@ -23,4 +38,14 @@
   font-size: 16px;
   position: absolute;
 }
+
+.bs-tabs {
+  position: absolute;
+  top: 38px;
+  bottom: 0;
+  overflow-y: auto;
+  width: 100%;
+}
 </style>
+
+<style src="@/assets/elcustom.css" scoped /> 
