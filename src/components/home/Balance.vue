@@ -1,7 +1,7 @@
 <template>
   <div class="ba">
     <span class="ba-title">Balance</span>
-    <el-tabs v-model="activeName" @tab-click="handleClick" class="ba-tabs">
+    <el-tabs v-model="activeName" @tab-click="handleClick" class="ba-tabs custom-tab">
       <el-tab-pane label="Deposit" name="deposit">
         <Deposit />
       </el-tab-pane>
@@ -55,39 +55,6 @@ export default {
   bottom: 0;
   overflow-y: auto;
 }
-
-.ba >>> .el-tabs--border-card {
-  background: var(--container-bg);
-  border: none;
-  box-shadow: none;
-}
-
-.ba >>> .el-tabs__header {
-  background: var(--container-bg);
-  box-shadow: none;
-}
-
-.ba >>> .el-tabs__item {
-  color: var(--page-text-highlight);
-  padding: 0 10px;
-  font-size: 12px;
-}
-
-.ba >>> .el-tabs__item.is-top:nth-child(2) {
-  padding-left: 10px;
-}
-
-.ba >>> .el-tabs__item:active,
-.ba >>> .el-tabs__item:hover {
-  color: var(--page-text-highlight);
-}
-
-.ba >>> .el-tabs__nav-wrap::after {
-  background-color: var(--page-text);
-  height: 1px;
-}
-
-.ba >>> .el-tabs__active-bar {
-  height: 3px;
-}
 </style>
+
+<style src="@/assets/el-custom.css" scoped /> 
