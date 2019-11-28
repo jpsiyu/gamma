@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import metamask from '@/scripts/metamask'
 
 /**
  * plugins
@@ -20,6 +21,7 @@ Vue.config.productionTip = false
 new Vue({
   store,
   router,
+  metamask,
   render: h => h(App),
   created() {
     document.body.className = 'default'
