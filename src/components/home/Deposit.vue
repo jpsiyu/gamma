@@ -7,11 +7,11 @@
         <span>Gamma</span>
       </div>
       <div class="dp-balance">
-        <span>{{curPair[0]}}</span>
+        <span>{{curPair.coin}}</span>
         <span>0.000</span>
         <span>0.000</span>
       </div>
-      <span class="dp-part__title">Deposit {{curPair[0]}}</span>
+      <span class="dp-part__title">Deposit {{curPair.coin}}</span>
       <div class="dp-inline">
         <el-input v-model="amountA" placeholder="Amount"></el-input>
         <el-button>Deposit</el-button>
@@ -24,11 +24,11 @@
         <span>Gamma</span>
       </div>
       <div class="dp-balance">
-        <span>{{curPair[1]}}</span>
+        <span>{{curPair.basi}}</span>
         <span>0.000</span>
         <span>0.000</span>
       </div>
-      <span class="dp-part__title">Deposit {{curPair[1]}}</span>
+      <span class="dp-part__title">Deposit {{curPair.basi}}</span>
       <div class="dp-inline">
         <el-input v-model="amountB" placeholder="Amount"></el-input>
         <el-button>Deposit</el-button>
@@ -36,7 +36,7 @@
     </div>
     <p
       class="dp-note"
-    >Make sure {{curPair[0]}} is the token you actually want to trade. Multiple tokens can share the same name.</p>
+    >Make sure {{curPair.coin}} is the token you actually want to trade. Multiple tokens can share the same name.</p>
   </div>
 </template>
 

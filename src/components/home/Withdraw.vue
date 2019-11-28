@@ -7,11 +7,11 @@
         <span>Gamma</span>
       </div>
       <div class="wd-balance">
-        <span>{{curPair[0]}}</span>
+        <span>{{curPair.coin}}</span>
         <span>0.000</span>
         <span>0.000</span>
       </div>
-      <span class="wd-part__title">Widthdraw {{curPair[0]}}</span>
+      <span class="wd-part__title">Widthdraw {{curPair.coin}}</span>
       <div class="wd-inline">
         <el-input v-model="amountA" placeholder="Amount"></el-input>
         <el-button>Widthdraw</el-button>
@@ -24,11 +24,11 @@
         <span>Gamma</span>
       </div>
       <div class="wd-balance">
-        <span>{{curPair[1]}}</span>
+        <span>{{curPair.basi}}</span>
         <span>0.000</span>
         <span>0.000</span>
       </div>
-      <span class="wd-part__title">Widthdraw {{curPair[1]}}</span>
+      <span class="wd-part__title">Widthdraw {{curPair.basi}}</span>
       <div class="wd-inline">
         <el-input v-model="amountB" placeholder="Amount"></el-input>
         <el-button>Widthdraw</el-button>
@@ -36,7 +36,7 @@
     </div>
     <p
       class="wd-note"
-    >Make sure {{curPair[0]}} is the token you actually want to trade. Multiple tokens can share the same name.</p>
+    >Make sure {{curPair.coin}} is the token you actually want to trade. Multiple tokens can share the same name.</p>
   </div>
 </template>
 

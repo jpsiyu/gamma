@@ -3,12 +3,12 @@
     <el-form :model="form" :ref="form" label-position="top">
       <el-form-item label="Amount to buy" prop="amount">
         <el-input v-model="form.amount">
-          <span slot="append">{{curPair[0]}}</span>
+          <span slot="append">{{curPair.coin}}</span>
         </el-input>
       </el-form-item>
       <el-form-item label="Price" prop="price">
         <el-input v-model="form.price">
-          <span slot="append">{{curPair[1]}}</span>
+          <span slot="append">{{curPair.basi}}</span>
         </el-input>
       </el-form-item>
       <el-form-item label="Total" prop="total">

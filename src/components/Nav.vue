@@ -2,10 +2,15 @@
   <div class="nav">
     <img class="nav-logo" src="@/assets/logo.png" alt />
     <span class="nav-title">Gamma</span>
-    <span class="nav-pair">
-      {{curPair[0]}}
-      <i class="nav-icon el-icon-arrow-down"></i>
-    </span>
+    <el-dropdown @command="handleCommand">
+      <span class="nav-pair">
+        {{curPair.coin}}
+        <i class="nav-icon el-icon-arrow-down"></i>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item v-for="(item, index) in pairs" :key="index" :command="item">{{item.coin}}</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
   </div>
 </template>
 
@@ -17,6 +22,12 @@ export default {
       pairs: state => state.pairs,
       curPair: state => state.curPair,
     }),
+  },
+  methods: {
+    handleCommand(item) {
+      const path = item.coin + '_' + item.base
+      this.$router.push({ path }).catch(() => { })
+    }
   }
 }
 </script>
@@ -45,6 +56,7 @@ export default {
   border-radius: 20px;
   padding: 0 10px;
   cursor: pointer;
+  color: var(--page-text);
 }
 
 .nav-icon {

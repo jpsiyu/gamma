@@ -32,8 +32,38 @@ import PriceChart from '@/components/home/PriceChart'
 import Transactions from '@/components/home/Transactions'
 import TradesVolumn from '@/components/home/TradesVolumn'
 import Updates from '@/components/home/Updates'
+import { mapState } from 'vuex'
 export default {
   components: { Balance, BuySell, OrderBook, PriceChart, Transactions, TradesVolumn, Updates },
+  computed: {
+    ...mapState({
+      pairs: state => state.pairs,
+    }),
+  },
+  watch: {
+    '$route': {
+      deep: true,
+      handler: function () {
+        this.matchPair()
+      }
+    }
+  },
+  created() {
+    this.matchPair()
+  },
+  methods: {
+    matchPair() {
+      const pairStr = this.$route.params.pair
+      if (!pairStr) return
+
+      const coin = pairStr.split('_')[0]
+      const target = this.pairs.find(e => {
+        return e.coin === coin
+      })
+      if (!target) return
+      this.$store.commit('changeCurPair', target)
+    }
+  }
 }
 </script>
 
