@@ -45,7 +45,7 @@ export default {
     getTokenBalance() {
       return Promise.all([
         this.$gamma.token.methods.balanceOf(this.account).call(),
-        this.$gamma.dex.methods.tokenUserAmountOf(this.$gamma.dexAddr(), this.$gamma.tokenAddr()).call(),
+        this.$gamma.dex.methods.tokenUserAmountOf(this.$gamma.tokenAddr(), this.account).call(),
       ])
         .then(res => {
           this.balance.token = res[0]

@@ -13,8 +13,8 @@
       </div>
       <span class="dp-part__title">Deposit {{curPair.coin}}</span>
       <div class="dp-inline">
-        <el-input v-model="amountA" placeholder="Amount"></el-input>
-        <el-button>Deposit</el-button>
+        <el-input v-model="amountToken" placeholder="Amount"></el-input>
+        <el-button @click="depositToken">Deposit</el-button>
       </div>
     </div>
     <div class="dp-part">
@@ -30,8 +30,8 @@
       </div>
       <span class="dp-part__title">Deposit {{curPair.base}}</span>
       <div class="dp-inline">
-        <el-input v-model="amountB" placeholder="Amount"></el-input>
-        <el-button>Deposit</el-button>
+        <el-input v-model="amountEth" placeholder="Amount"></el-input>
+        <el-button @click="depositEth">Deposit</el-button>
       </div>
     </div>
     <p
@@ -42,19 +42,48 @@
 
 <script>
 import { mapState } from 'vuex'
+import BigNumber from 'bignumber.js'
 export default {
   props: ['balance'],
   data() {
     return {
-      amountA: '',
-      amountB: '',
+      amountToken: '',
+      amountEth: '',
     }
   },
   computed: {
     ...mapState({
+      account: state => state.account,
       curPair: state => state.curPair,
     }),
+  },
+  methods: {
+    depositToken() {
+      if (!this.amountToken || isNaN(this.amountToken)) {
+        return this.$message({ message: 'Illegal amount', type: 'warning' })
+      }
+      const amount = BigNumber(this.amountToken).multipliedBy(10 ** 18)
+      const total = BigNumber(this.balance.token)
+      if (amount > total) {
+        return this.$message({ message: 'Not enough', type: 'warning' })
+      }
+
+      this.$gamma.token.methods.approve(this.$gamma.dexAddr(), amount.toFixed()).send({ from: this.account })
+        .then(res => {
+          console.log('approve', res)
+          return this.$gamma.dex.methods.depositToken(this.$gamma.tokenAddr(), amount.toFixed()).send({ from: this.account })
+        })
+        .then(res => {
+          console.log('deposit', res)
+        })
+        .catch(err => {
+          console.error(err)
+          this.$message({ message: err.message, type: 'error' })
+        })
+    },
+    depositEth() { }
   }
+
 }
 </script>
 
