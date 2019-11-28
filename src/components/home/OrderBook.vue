@@ -2,9 +2,9 @@
   <div class="ob">
     <span class="ob-title">Order Book</span>
     <div class="ob-pair">
-      <span>{{pairArray[0]}}</span>
-      <span>{{pairArray[0]}}/{{pairArray[1]}}</span>
-      <span>{{pairArray[1]}}</span>
+      <span>{{curPair[0]}}</span>
+      <span>{{curPair[0]}}/{{curPair[1]}}</span>
+      <span>{{curPair[1]}}</span>
     </div>
     <div class="ob-book">
       <div class="ob-sell">
@@ -26,13 +26,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   computed: {
-    pairArray() {
-      const pair = this.$route.params.pair
-      const pairArray = pair.split('_')
-      return pairArray
-    },
+    ...mapState({
+      curPair: state => state.curPair,
+    }),
     buyList() {
       return [
         { amount: 12, price: 0.4, total: 4.8 },

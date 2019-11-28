@@ -3,20 +3,20 @@
     <img class="nav-logo" src="@/assets/logo.png" alt />
     <span class="nav-title">Gamma</span>
     <span class="nav-pair">
-      {{pairArray[0]}}
+      {{curPair[0]}}
       <i class="nav-icon el-icon-arrow-down"></i>
     </span>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   computed: {
-    pairArray() {
-      const pair = this.$route.params.pair
-      const pairArray = pair.split('_')
-      return pairArray
-    }
+    ...mapState({
+      pairs: state => state.pairs,
+      curPair: state => state.curPair,
+    }),
   }
 }
 </script>

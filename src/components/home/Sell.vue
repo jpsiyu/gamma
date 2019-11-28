@@ -3,12 +3,12 @@
     <el-form :model="form" :ref="form" label-position="top">
       <el-form-item label="Amount to sell" prop="amount">
         <el-input v-model="form.amount">
-          <span slot="append">{{pairArray[0]}}</span>
+          <span slot="append">{{curPair[0]}}</span>
         </el-input>
       </el-form-item>
       <el-form-item label="Price" prop="price">
         <el-input v-model="form.price">
-          <span slot="append">{{pairArray[1]}}</span>
+          <span slot="append">{{curPair[1]}}</span>
         </el-input>
       </el-form-item>
       <el-form-item label="Total" prop="total">
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -37,11 +38,9 @@ export default {
     }
   },
   computed: {
-    pairArray() {
-      const pair = this.$route.params.pair
-      const pairArray = pair.split('_')
-      return pairArray
-    }
+    ...mapState({
+      curPair: state => state.curPair,
+    }),
   }
 }
 </script>
