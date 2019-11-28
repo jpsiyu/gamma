@@ -4,9 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const pairs = [
-  { id: 1, coin: 'PPT', base: 'ETH' },
-  { id: 2, coin: 'IOD', base: 'ETH' },
-  { id: 3, coin: 'BBB', base: 'ETH' },
+  { id: 1, coin: 'GTM', base: 'ETH' },
 ]
 
 export default new Vuex.Store({

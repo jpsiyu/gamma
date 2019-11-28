@@ -22,7 +22,7 @@ const router = new Router({
 
 router.beforeEach((to, form, next) => {
   if (to.path === '/') {
-    next('/PPT_ETH')
+    next('/GTM_ETH')
     return
   }
 
