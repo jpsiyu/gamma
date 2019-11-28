@@ -8,8 +8,8 @@
       </div>
       <div class="wd-balance">
         <span>{{curPair.coin}}</span>
-        <span>0.000</span>
-        <span>0.000</span>
+        <span>{{balance.token | unit}}</span>
+        <span>{{balance.tokenInDex | unit}}</span>
       </div>
       <span class="wd-part__title">Widthdraw {{curPair.coin}}</span>
       <div class="wd-inline">
@@ -25,8 +25,8 @@
       </div>
       <div class="wd-balance">
         <span>{{curPair.base}}</span>
-        <span>0.000</span>
-        <span>0.000</span>
+        <span>{{balance.eth | unit}}</span>
+        <span>{{balance.ethInDex | unit}}</span>
       </div>
       <span class="wd-part__title">Widthdraw {{curPair.base}}</span>
       <div class="wd-inline">
@@ -43,6 +43,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  props: ['balance'],
   data() {
     return {
       amountA: '',

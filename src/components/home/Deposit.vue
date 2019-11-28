@@ -8,8 +8,8 @@
       </div>
       <div class="dp-balance">
         <span>{{curPair.coin}}</span>
-        <span>{{balance.token}}</span>
-        <span>{{balance.tokenInDex}}</span>
+        <span>{{balance.token | unit}}</span>
+        <span>{{balance.tokenInDex | unit}}</span>
       </div>
       <span class="dp-part__title">Deposit {{curPair.coin}}</span>
       <div class="dp-inline">
@@ -25,8 +25,8 @@
       </div>
       <div class="dp-balance">
         <span>{{curPair.base}}</span>
-        <span>{{balance.eth}}</span>
-        <span>{{balance.ethInDex}}</span>
+        <span>{{balance.eth | unit}}</span>
+        <span>{{balance.ethInDex | unit}}</span>
       </div>
       <span class="dp-part__title">Deposit {{curPair.base}}</span>
       <div class="dp-inline">

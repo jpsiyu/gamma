@@ -16,6 +16,11 @@ import '@/plugins/gamma'
  */
 import '@/assets/default.css'
 
+/**
+ * global filters
+ */
+import '@/scripts/filters'
+
 Vue.config.productionTip = false
 
 new Vue({
