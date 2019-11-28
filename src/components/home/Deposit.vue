@@ -8,8 +8,8 @@
       </div>
       <div class="dp-balance">
         <span>{{curPair.coin}}</span>
-        <span>0.000</span>
-        <span>0.000</span>
+        <span>{{balance.token}}</span>
+        <span>{{balance.tokenInDex}}</span>
       </div>
       <span class="dp-part__title">Deposit {{curPair.coin}}</span>
       <div class="dp-inline">
@@ -24,11 +24,11 @@
         <span>Gamma</span>
       </div>
       <div class="dp-balance">
-        <span>{{curPair.basi}}</span>
-        <span>0.000</span>
-        <span>0.000</span>
+        <span>{{curPair.base}}</span>
+        <span>{{balance.eth}}</span>
+        <span>{{balance.ethInDex}}</span>
       </div>
-      <span class="dp-part__title">Deposit {{curPair.basi}}</span>
+      <span class="dp-part__title">Deposit {{curPair.base}}</span>
       <div class="dp-inline">
         <el-input v-model="amountB" placeholder="Amount"></el-input>
         <el-button>Deposit</el-button>
@@ -43,6 +43,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  props: ['balance'],
   data() {
     return {
       amountA: '',

@@ -3,8 +3,8 @@
     <span class="ob-title">Order Book</span>
     <div class="ob-pair">
       <span>{{curPair.coin}}</span>
-      <span>{{curPair.coin}}/{{curPair.basi}}</span>
-      <span>{{curPair.basi}}</span>
+      <span>{{curPair.coin}}/{{curPair.base}}</span>
+      <span>{{curPair.base}}</span>
     </div>
     <div class="ob-book">
       <div class="ob-sell">

@@ -3,10 +3,10 @@
     <span class="ba-title">Balance</span>
     <el-tabs v-model="activeName" @tab-click="handleClick" class="ba-tabs elcustom-tabs">
       <el-tab-pane label="Deposit" name="deposit">
-        <Deposit />
+        <Deposit :balance="balance" />
       </el-tab-pane>
       <el-tab-pane label="Withdraw" name="withdraw">
-        <Withdraw />
+        <Withdraw :balance="balance" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -15,15 +15,43 @@
 <script>
 import Deposit from '@/components/home/Deposit'
 import Withdraw from '@/components/home/Withdraw'
+import { mapState } from 'vuex'
 export default {
   components: { Deposit, Withdraw },
   data() {
     return {
-      activeName: 'deposit'
+      activeName: 'deposit',
+      balance: {
+        token: 0,
+        tokenInDex: 0,
+        eth: 0,
+        ethInDex: 0,
+      }
+    }
+  },
+  computed: {
+    ...mapState({
+      account: state => state.account,
+    })
+  },
+  watch: {
+    account: function (val) {
+      if (val)
+        this.getTokenBalance()
     }
   },
   methods: {
-    handleClick() { }
+    handleClick() { },
+    getTokenBalance() {
+      return Promise.all([
+        this.$gamma.token.methods.balanceOf(this.account).call(),
+        this.$gamma.dex.methods.tokenUserAmountOf(this.$gamma.dexAddr(), this.$gamma.tokenAddr()).call(),
+      ])
+        .then(res => {
+          this.balance.token = res[0]
+          this.balance.tokenInDex = res[1]
+        })
+    }
   }
 }
 </script>

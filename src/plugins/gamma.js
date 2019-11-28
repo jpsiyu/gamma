@@ -20,14 +20,13 @@ class Gamma {
     return window.ethereum.enable()
   }
 
-  balanceOf(tokenAddress, userAddress) {
-    return this.dex.methods.balanceOf(tokenAddress, userAddress).call()
+  dexAddr() {
+    return deploy.DexAddr
   }
 
-  depositToken(address, amount) {
-    return this.dex.methods.depositToken(address, amount).call()
+  tokenAddr(){
+    return deploy.Erc20Addr
   }
-
 }
 
 const gamma = new Gamma()

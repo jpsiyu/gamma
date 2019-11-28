@@ -8,7 +8,7 @@
       </el-form-item>
       <el-form-item label="Price" prop="price">
         <el-input v-model="form.price">
-          <span slot="append">{{curPair.basi}}</span>
+          <span slot="append">{{curPair.base}}</span>
         </el-input>
       </el-form-item>
       <el-form-item label="Total" prop="total">

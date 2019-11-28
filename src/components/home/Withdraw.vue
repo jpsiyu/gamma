@@ -24,11 +24,11 @@
         <span>Gamma</span>
       </div>
       <div class="wd-balance">
-        <span>{{curPair.basi}}</span>
+        <span>{{curPair.base}}</span>
         <span>0.000</span>
         <span>0.000</span>
       </div>
-      <span class="wd-part__title">Widthdraw {{curPair.basi}}</span>
+      <span class="wd-part__title">Widthdraw {{curPair.base}}</span>
       <div class="wd-inline">
         <el-input v-model="amountB" placeholder="Amount"></el-input>
         <el-button>Widthdraw</el-button>
