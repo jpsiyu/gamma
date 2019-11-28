@@ -25,15 +25,6 @@ export default {
       }
     }
   },
-  created() {
-    this.$gamma.balanceOf('0x692a70D2e424a56D2C6C27aA97D1a86395877b3A', '0x2C0BA1b49072D35C578829eE29C0eF5A3f01d804')
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
   methods: {
     show() {
       this.visible = true
@@ -49,11 +40,6 @@ export default {
       if (!this.form.amount) {
         return this.$message({ message: 'Please input deposit amount.', type: 'warning' })
       }
-
-      this.$gamma.depositToken(this.form.address, this.form.amount)
-        .then(res => {
-          console.log(res)
-        })
     }
   }
 }

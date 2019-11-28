@@ -1,17 +1,27 @@
 <template>
   <div class="nav">
-    <img class="nav-logo" src="@/assets/logo.png" alt />
-    <span class="nav-title">Gamma</span>
-    <el-dropdown @command="handleCommand">
-      <span class="nav-pair">
-        {{curPair.coin}}
-        <i class="nav-icon el-icon-arrow-down"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item v-for="(item, index) in pairs" :key="index" :command="item">{{item.coin}}</el-dropdown-item>
-        <el-dropdown-item command="other">Other</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+    <div class="nav-left">
+      <img class="nav-logo" src="@/assets/logo.png" alt />
+      <span class="nav-title">Gamma</span>
+      <el-dropdown @command="handleCommand">
+        <span class="nav-pair">
+          {{curPair.coin}}
+          <i class="nav-icon el-icon-arrow-down"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item
+            v-for="(item, index) in pairs"
+            :key="index"
+            :command="item"
+          >{{item.coin}}</el-dropdown-item>
+          <el-dropdown-item command="other">Other</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+    <div class="nav-right">
+      <span v-if="account" class="nav-account">{{account}}</span>
+      <el-button class="nav-btnLogin" v-else type="success" @click="login">Login</el-button>
+    </div>
     <DepositToken ref="deposit" />
   </div>
 </template>
@@ -21,11 +31,16 @@ import DepositToken from '@/components/popup/DepositToken'
 import { mapState } from 'vuex'
 export default {
   components: { DepositToken },
+  data() {
+    return {
+    }
+  },
   computed: {
     ...mapState({
+      account: state => state.account,
       pairs: state => state.pairs,
       curPair: state => state.curPair,
-    }),
+    })
   },
   methods: {
     handleCommand(item) {
@@ -36,9 +51,15 @@ export default {
       const path = item.coin + '_' + item.base
       this.$router.push({ path }).catch(() => { })
     },
-
     handleOther() {
       this.$refs.deposit.show()
+    },
+    login() {
+      this.$gamma.metamaskEnable()
+        .then(accounts => {
+          const account = accounts[0]
+          this.$store.commit('setAccount', account)
+        })
     }
   }
 }
@@ -50,7 +71,17 @@ export default {
   color: var(--page-text);
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left {
   padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-right {
+  margin-right: 20px;
 }
 
 .nav-logo {
@@ -74,5 +105,19 @@ export default {
 .nav-icon {
   font-size: 12px;
   margin-left: 3px;
+}
+
+.nav-account {
+  display: inline-block;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid var(--page-text);
+  border-radius: 10px;
+  padding: 0 5px;
+}
+
+.nav-btnLogin {
+  padding: 4px 15px;
 }
 </style>
