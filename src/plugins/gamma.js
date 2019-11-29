@@ -13,7 +13,6 @@ class Gamma {
     const web3 = new Web3(window.ethereum)
     this.dex = new web3.eth.Contract(deploy.DexABI, deploy.DexAddr)
     this.token = new web3.eth.Contract(deploy.Erc20ABI, deploy.Erc20Addr)
-    this.web3 = web3
 
   }
 

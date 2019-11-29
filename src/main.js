@@ -7,8 +7,9 @@ import router from './router'
  * plugins
  */
 
+import '@/plugins/eventBus'
 import '@/plugins/axios'
-import '@/plugins/element.js'
+import '@/plugins/element'
 import '@/plugins/gamma'
 
 /**
