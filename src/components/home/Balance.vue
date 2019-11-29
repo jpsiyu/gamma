@@ -46,10 +46,14 @@ export default {
       return Promise.all([
         this.$gamma.token.methods.balanceOf(this.account).call(),
         this.$gamma.dex.methods.tokenUserAmountOf(this.$gamma.tokenAddr(), this.account).call(),
+        this.$gamma.web3.eth.getBalance(this.account),
+        this.$gamma.dex.methods.tokenUserAmountOf(this.$gamma.zeroAddr(), this.account).call(),
       ])
         .then(res => {
           this.balance.token = res[0]
           this.balance.tokenInDex = res[1]
+          this.balance.eth = res[2]
+          this.balance.ethInDex = res[3]
         })
     }
   }
