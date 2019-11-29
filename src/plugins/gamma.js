@@ -14,6 +14,16 @@ class Gamma {
     this.dex = new web3.eth.Contract(deploy.DexABI, deploy.DexAddr)
     this.token = new web3.eth.Contract(deploy.Erc20ABI, deploy.Erc20Addr)
 
+    //this.subscribe()
+  }
+
+  subscribe() {
+    if (!Vue.prototype.$eventBus) return
+    const infura = new Web3('wss://ropsten.infura.io/ws/v3/9f28b75fa35c4dc2ae401196993494f5')
+    infura.eth.subscribe('pendingTransactions', (error, result) => {
+      console.log('pendingTransactions', result)
+      Vue.prototype.$eventBus.$emit('pendingTransactions', (error, result))
+    })
   }
 
   metamaskEnable() {
