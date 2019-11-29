@@ -34,17 +34,21 @@
         <el-button @click="depositEth">Deposit</el-button>
       </div>
     </div>
-    <p
-      class="dp-note"
-    >Make sure {{curPair.coin}} is the token you actually want to trade. Multiple tokens can share the same name.</p>
+    <p class="dp-note">
+      Make sure {{curPair.coin}} is the token you actually want to trade.
+      Multiple tokens can share the same name.
+    </p>
+    <NotifyHash ref="notifyHash" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import BigNumber from 'bignumber.js'
+import NotifyHash from '@/components/popup/NotifyHash'
 export default {
   props: ['balance'],
+  components: { NotifyHash },
   data() {
     return {
       amountToken: '',
@@ -68,6 +72,18 @@ export default {
         return this.$message({ message: 'Not enough', type: 'warning' })
       }
 
+      Promise.all([
+        this.$gamma.token.methods.approve(this.$gamma.dexAddr(), amount.toFixed()).send({ from: this.account }),
+        this.$gamma.dex.methods.depositToken(this.$gamma.tokenAddr(), amount.toFixed()).send({ from: this.account }),
+      ])
+        .then(res => {
+          const hashes = res.map(e => {
+            return e.transactionHash
+          })
+          this.$refs.notifyHash.show({ hashes })
+        })
+
+      /*
       this.$gamma.token.methods.approve(this.$gamma.dexAddr(), amount.toFixed()).send({ from: this.account })
         .then(res => {
           console.log('approve', res)
@@ -80,6 +96,7 @@ export default {
           console.error(err)
           this.$message({ message: err.message, type: 'error' })
         })
+        */
     },
     depositEth() { }
   }
