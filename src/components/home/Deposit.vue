@@ -72,31 +72,16 @@ export default {
         return this.$message({ message: 'Not enough', type: 'warning' })
       }
 
-      Promise.all([
-        this.$gamma.token.methods.approve(this.$gamma.dexAddr(), amount.toFixed()).send({ from: this.account }),
-        this.$gamma.dex.methods.depositToken(this.$gamma.tokenAddr(), amount.toFixed()).send({ from: this.account }),
-      ])
-        .then(res => {
-          const hashes = res.map(e => {
-            return e.transactionHash
-          })
-          this.$refs.notifyHash.show({ hashes })
-        })
-
-      /*
+      const hashes = []
       this.$gamma.token.methods.approve(this.$gamma.dexAddr(), amount.toFixed()).send({ from: this.account })
-        .then(res => {
-          console.log('approve', res)
-          return this.$gamma.dex.methods.depositToken(this.$gamma.tokenAddr(), amount.toFixed()).send({ from: this.account })
+        .on('transactionHash', hash => {
+          hashes.push(hash)
+          this.$gamma.dex.methods.depositToken(this.$gamma.tokenAddr(), amount.toFixed()).send({ from: this.account })
+            .on('transactionHash', hash => {
+              hashes.push(hash)
+              this.$refs.notifyHash.show({ hashes })
+            })
         })
-        .then(res => {
-          console.log('deposit', res)
-        })
-        .catch(err => {
-          console.error(err)
-          this.$message({ message: err.message, type: 'error' })
-        })
-        */
     },
     depositEth() { }
   }
