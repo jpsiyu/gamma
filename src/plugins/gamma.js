@@ -39,7 +39,7 @@ class Gamma {
     return deploy.Erc20Addr
   }
 
-  zeroAddr() {
+  ethAddr() {
     return '0x0000000000000000000000000000000000000000'
   }
 }

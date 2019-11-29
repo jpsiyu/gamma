@@ -71,16 +71,7 @@ contract Base  {
         emit OnDeposit(_token, msg.sender, _amount, tokenUserAmountOf[_token][msg.sender], getEventId());
     }
        
-    function testDepositToken(address _token, address _user, uint _amount) external view returns (bool _result) {
-        require(_token != address(0x0));
-        require(_user != address(0x0));
-        require(_amount > 0);
-        _result = Erc20Token(_token).allowance(_user, address(this)) >= _amount;
-    }
-
-    function testAllowance(address _token, address _user) external view returns (uint _result) {
-        _result = Erc20Token(_token).allowance(_user, address(this));
-    }
+    
     
     function withdrawToken(address _token, uint _amount) external {
         require(_token != address(0x0));
@@ -209,23 +200,7 @@ contract Gamma is Base {
         tokenUserAmountOf[_tokenGive][_seller]    = tokenUserAmountOf[_tokenGive][_seller].sub(t1Amount);
     }
 
-    function testBuy1(address _tokenGet, uint _amountGet, address _tokenGive, uint _amountGive, uint _expires, string memory _clientNonce, address _seller, 
-        uint _amount, address _buyer) view public returns(bool _result) 
-    {
-        _result = tokenUserAmountOf[_tokenGet][_buyer] >= _amount && availableVolume1(_tokenGet, _amountGet, _tokenGive, _amountGive, _expires, _clientNonce, _seller) >= _amount;   
-    }
-
-    function testBuy2(address _tokenGet, uint _amountGet, address _tokenGive, uint _amountGive, uint _expires, string memory _clientNonce, address _seller, 
-        uint _amount, address _buyer, uint8 v, bytes32 r, bytes32 s) view public returns(bool _result) 
-    {
-        _result = tokenUserAmountOf[_tokenGet][_buyer] >= _amount && availableVolume2(_tokenGet, _amountGet, _tokenGive, _amountGive, _expires, _clientNonce, _seller,  v,  r,  s) >= _amount;   
-    }
-
-    function testBuy3(address _tokenGet, uint _amountGet, address _tokenGive, uint _amountGive, uint _expires, string memory _clientNonce, address _seller, 
-        uint _amount, address _buyer, bytes memory _sig) view public returns(bool _result) 
-    {
-        _result = tokenUserAmountOf[_tokenGet][_buyer] >= _amount && availableVolume3(_tokenGet, _amountGet, _tokenGive, _amountGive, _expires, _clientNonce, _seller,  _sig) >= _amount;   
-    }
+    
 
     function availableVolume1(address _tokenGet, uint _amountGet, address _tokenGive, uint _amountGive, uint _expires, string memory _clientNonce, address _seller) 
         view public returns(uint _result) 
