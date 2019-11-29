@@ -83,7 +83,23 @@ export default {
             })
         })
     },
-    depositEth() { }
+    depositEth() {
+      if (!this.amountEth || isNaN(this.amountEth)) {
+        return this.$message({ message: 'Illegal amount', type: 'warning' })
+      }
+
+      const amount = BigNumber(this.amountEth).multipliedBy(10 ** 18)
+      const total = BigNumber(this.balance.eth)
+      if (amount > total) {
+        return this.$message({ message: 'Not enough', type: 'warning' })
+      }
+
+      this.$gamma.dex.methods.deposit().send({ from: this.account, value: amount })
+        .on('transactionHash', hash => {
+          this.$refs.notifyHash.show({ hashes: [hash] })
+        })
+
+    }
   }
 
 }

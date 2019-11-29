@@ -5,7 +5,7 @@
     </div>
     <div class="nh-main">
       <p>You just created Ethereum transactions. Track their progress:</p>
-      <p class="nh-hash" v-for="item in hashes" :key="item">{{item}}</p>
+      <p class="nh-hash" v-for="item in hashes" :key="item" @click="jumpEtherScan(item)">{{item}}</p>
     </div>
     <div slot="footer">
       <el-button type="primary" @click="hide">OK</el-button>
@@ -29,6 +29,10 @@ export default {
     hide() {
       this.visible = false
       this.hashes = []
+    },
+    jumpEtherScan(hash) {
+      const url = `https://ropsten.etherscan.io/tx/${hash}`
+      window.open(url, '_blank')
     }
   }
 }
@@ -36,17 +40,17 @@ export default {
 
 <style scoped>
 .nh-hash {
-  color: #409EFF;
+  color: #409eff;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.nh-icon{
+.nh-icon {
   font-size: 30px;
-  color: #E6A23C;
+  color: #e6a23c;
 }
 
-.nh >>> .el-dialog__body{
+.nh >>> .el-dialog__body {
   padding: 0 40px;
 }
 </style>
