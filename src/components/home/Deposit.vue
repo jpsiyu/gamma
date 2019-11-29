@@ -68,7 +68,7 @@ export default {
       }
       const amount = BigNumber(this.amountToken).multipliedBy(10 ** 18)
       const total = BigNumber(this.balance.token)
-      if (amount > total) {
+      if (amount.isGreaterThan(total)) {
         return this.$message({ message: 'Not enough', type: 'warning' })
       }
 
@@ -90,7 +90,7 @@ export default {
 
       const amount = BigNumber(this.amountEth).multipliedBy(10 ** 18)
       const total = BigNumber(this.balance.eth)
-      if (amount > total) {
+      if (amount.isGreaterThan(total)) {
         return this.$message({ message: 'Not enough', type: 'warning' })
       }
 

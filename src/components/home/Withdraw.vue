@@ -13,8 +13,8 @@
       </div>
       <span class="wd-part__title">Widthdraw {{curPair.coin}}</span>
       <div class="wd-inline">
-        <el-input v-model="amountA" placeholder="Amount"></el-input>
-        <el-button>Widthdraw</el-button>
+        <el-input v-model="amountToken" placeholder="Amount"></el-input>
+        <el-button @click="withdrawToken">Widthdraw</el-button>
       </div>
     </div>
     <div class="wd-part">
@@ -30,30 +30,77 @@
       </div>
       <span class="wd-part__title">Widthdraw {{curPair.base}}</span>
       <div class="wd-inline">
-        <el-input v-model="amountB" placeholder="Amount"></el-input>
-        <el-button>Widthdraw</el-button>
+        <el-input v-model="amountEth" placeholder="Amount"></el-input>
+        <el-button @click="withdrawEth">Widthdraw</el-button>
       </div>
     </div>
-    <p
-      class="wd-note"
-    >Make sure {{curPair.coin}} is the token you actually want to trade. Multiple tokens can share the same name.</p>
+    <p class="wd-note">
+      Make sure {{curPair.coin}} is the token you actually want to trade.
+      Multiple tokens can share the same name.
+    </p>
+    <NotifyHash ref="notifyHash" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import BigNumber from 'bignumber.js'
+import NotifyHash from '@/components/popup/NotifyHash'
 export default {
   props: ['balance'],
+  components: { NotifyHash },
   data() {
     return {
-      amountA: '',
-      amountB: '',
+      amountToken: '',
+      amountEth: '',
     }
   },
   computed: {
     ...mapState({
+      account: state => state.account,
       curPair: state => state.curPair,
     }),
+  },
+  methods: {
+    withdrawToken() {
+      if (!this.amountToken || isNaN(this.amountToken)) {
+        return this.$message({ message: 'Illegal amount', type: 'warning' })
+      }
+      const amount = BigNumber(this.amountToken).multipliedBy(10 ** 18)
+      const total = BigNumber(this.balance.tokenInDex)
+      if (amount.isGreaterThan(total)) {
+        return this.$message({ message: 'Not enough', type: 'warning' })
+      }
+
+      const hashes = []
+      this.$gamma.dex.methods.withdrawToken(this.$gamma.tokenAddr(), amount.toFixed()).send({ from: this.account })
+        .on('transactionHash', hash => {
+          hashes.push(hash)
+          this.$refs.notifyHash.show({ hashes })
+        })
+        .on('receipt', receipt => {
+          console.log('receipt', receipt)
+        })
+    },
+    withdrawEth() {
+      if (!this.amountEth || isNaN(this.amountEth)) {
+        return this.$message({ message: 'Illegal amount', type: 'warning' })
+      }
+
+      const amount = BigNumber(this.amountEth).multipliedBy(10 ** 18)
+      const total = BigNumber(this.balance.ethInDex)
+      if (amount.isGreaterThan(total)) {
+        return this.$message({ message: 'Not enough', type: 'warning' })
+      }
+
+      this.$gamma.dex.methods.withdraw(amount.toFixed()).send({ from: this.account })
+        .on('transactionHash', hash => {
+          this.$refs.notifyHash.show({ hashes: [hash] })
+        })
+        .on('receipt', receipt => {
+          console.log('receipt', receipt)
+        })
+    }
   }
 }
 </script>
