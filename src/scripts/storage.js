@@ -15,6 +15,10 @@ const getOrders = () => {
 }
 
 const addOrder = order => {
+  const index = orders.findIndex(e => {
+    return e.transactionHash === order.transactionHash
+  })
+  if (index !== -1) return
   orders.push(order)
   save()
 }

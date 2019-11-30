@@ -1,6 +1,9 @@
 <template>
-  <div class="ba">
-    <span class="ba-title">Balance</span>
+  <div class="ba" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+    <div class="ba-title">
+      <span>Balance</span>
+      <i class="ba-refresh el-icon-refresh" @click="getTokenBalance"></i>
+    </div>
     <el-tabs v-model="activeName" @tab-click="handleClick" class="ba-tabs elcustom-tabs">
       <el-tab-pane label="Deposit" name="deposit">
         <Deposit :balance="balance" />
@@ -26,7 +29,8 @@ export default {
         tokenInDex: 0,
         eth: 0,
         ethInDex: 0,
-      }
+      },
+      loading: false
     }
   },
   computed: {
@@ -43,6 +47,7 @@ export default {
   methods: {
     handleClick() { },
     getTokenBalance() {
+      this.loading = true
       return Promise.all([
         this.$gamma.token.methods.balanceOf(this.account).call(),
         this.$gamma.dex.methods.tokenUserAmountOf(this.$gamma.tokenAddr(), this.account).call(),
@@ -54,6 +59,9 @@ export default {
           this.balance.tokenInDex = res[1]
           this.balance.eth = res[2]
           this.balance.ethInDex = res[3]
+        })
+        .finally(() => {
+          this.loading = false
         })
     }
   }
@@ -76,9 +84,14 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
-  display: inline-block;
   font-size: 16px;
   position: absolute;
+}
+
+.ba-refresh {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
 }
 
 .ba-tabs {

@@ -79,38 +79,20 @@ export default {
         return this.$message({ message: 'Illegal trade', type: 'warning' })
       }
 
-      const amount = BigNumber(this.form.amount).multipliedBy(10 ** 18).toFixed()
-
-      /*
-      this.$gamma.dex.methods.buy1(
-        this.order.returnValues[0],
-        this.order.returnValues[1],
-        this.order.returnValues[2],
-        this.order.returnValues[3],
-        this.order.returnValues[4],
-        this.order.returnValues[5],
-        this.order.returnValues[6],
-        amount
-      ).estimateGas()
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(this.order.returnValues, amount)
-          console.error(err)
-        })
-      */
+      const amount = this.tradeInfo.amIBuy
+        ? BigNumber(this.eth).multipliedBy(10 ** 18).toFixed()
+        : BigNumber(this.form.amount).multipliedBy(10 ** 18).toFixed()
 
       this.$gamma.dex.methods.buy1(
-        this.order.returnValues[0],
-        this.order.returnValues[1],
-        this.order.returnValues[2],
-        this.order.returnValues[3],
-        this.order.returnValues[4],
-        this.order.returnValues[5],
-        this.order.returnValues[6],
-        amount
-      ).send({ from: this.account, gas: 76000000 })
+          this.order.returnValues[0],
+          this.order.returnValues[1],
+          this.order.returnValues[2],
+          this.order.returnValues[3],
+          this.order.returnValues[4],
+          this.order.returnValues[5],
+          this.order.returnValues[6],
+          amount
+        ).send({ from: this.account})
         .on('transactionHash', hash => {
           this.$refs.notifyHash.show({ hashes: [hash] })
         })
