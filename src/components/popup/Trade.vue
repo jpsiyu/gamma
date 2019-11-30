@@ -4,7 +4,7 @@
     <el-form class="tr-form" label-position="top" :model="form">
       <el-form-item
         label="Order"
-      >1000 {{curPair.coin}}, {{tradeInfo.price}} {{curPair.coin}}/{{curPair.base}}</el-form-item>
+      >{{tradeInfo.amount}} {{curPair.coin}}, {{tradeInfo.price}} {{curPair.coin}}/{{curPair.base}}</el-form-item>
       <el-form-item label="Amount" prop="amount">
         <el-input v-model="form.amount">
           <span slot="append">{{curPair.coin}}</span>
@@ -53,11 +53,16 @@ export default {
         ? BigNumber(this.order.returnValues[3]).dividedBy(BigNumber(this.order.returnValues[1]))
         : BigNumber(this.order.returnValues[1]).dividedBy(BigNumber(this.order.returnValues[3]))
       price = price.toFixed()
+      let amount = isBuyOrder
+        ? BigNumber(this.order.returnValues[1]).dividedBy(10 ** 18)
+        : BigNumber(this.order.returnValues[3]).dividedBy(10 ** 18)
+      amount = amount.toFixed()
 
       return {
         amIBuy,
         title,
-        price
+        price,
+        amount,
       }
     },
     eth() {
@@ -84,15 +89,15 @@ export default {
         : BigNumber(this.form.amount).multipliedBy(10 ** 18).toFixed()
 
       this.$gamma.dex.methods.buy1(
-          this.order.returnValues[0],
-          this.order.returnValues[1],
-          this.order.returnValues[2],
-          this.order.returnValues[3],
-          this.order.returnValues[4],
-          this.order.returnValues[5],
-          this.order.returnValues[6],
-          amount
-        ).send({ from: this.account})
+        this.order.returnValues[0],
+        this.order.returnValues[1],
+        this.order.returnValues[2],
+        this.order.returnValues[3],
+        this.order.returnValues[4],
+        this.order.returnValues[5],
+        this.order.returnValues[6],
+        amount
+      ).send({ from: this.account })
         .on('transactionHash', hash => {
           this.$refs.notifyHash.show({ hashes: [hash] })
         })
