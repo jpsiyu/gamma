@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Web3 from 'web3'
 import deploy from '@/assets/smart-contract/deploy'
 import storage from '@/scripts/storage'
+import store from '@/store/index'
 
 class Gamma {
   constructor() {
@@ -11,15 +12,21 @@ class Gamma {
       throw new Error(msg)
     }
 
-    window.ethereum.autoRefreshOnNetworkChange = false
-
     const web3 = new Web3(window.ethereum)
     this.dex = new web3.eth.Contract(deploy.DexABI, deploy.DexAddr)
     this.token = new web3.eth.Contract(deploy.Erc20ABI, deploy.Erc20Addr)
     this.web3 = web3
 
-    //this.subscribe()
+    this.initMetaMask()
     this.handleEvent()
+  }
+
+  initMetaMask() {
+    window.ethereum.autoRefreshOnNetworkChange = false
+    window.ethereum.on('accountsChanged', (accounts) => {
+      const account = accounts[0]
+      store.commit('setAccount', account)
+    })
   }
 
   subscribe() {
