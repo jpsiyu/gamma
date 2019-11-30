@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import deploy from '@/assets/smart-contract/deploy'
 import Web3 from 'web3'
+import deploy from '@/assets/smart-contract/deploy'
+import storage from '@/scripts/storage'
 
 class Gamma {
   constructor() {
@@ -16,6 +17,7 @@ class Gamma {
     this.web3 = web3
 
     //this.subscribe()
+    this.handleEvent()
   }
 
   subscribe() {
@@ -25,6 +27,17 @@ class Gamma {
       console.log('pendingTransactions', result)
       Vue.prototype.$eventBus.$emit('pendingTransactions', (error, result))
     })
+  }
+
+  handleEvent() {
+    this.dex.events.OnSell()
+      .on('connected', subscriptionId => {
+        console.log('connected', subscriptionId)
+      })
+      .on('data', event => {
+        storage.addOrder(event)
+        Vue.prototype.$eventBus.$emit('addOrder')
+      })
   }
 
   metamaskEnable() {

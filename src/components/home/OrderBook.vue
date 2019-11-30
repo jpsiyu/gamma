@@ -9,16 +9,16 @@
     <div class="ob-book">
       <div class="ob-sell">
         <div class="ob-item" v-for="(item, index) in sellList" :key="index">
-          <span>{{item.amount}}</span>
+          <span>{{item.amount | unit}}</span>
           <span>{{item.price}}</span>
-          <span>{{item.total}}</span>
+          <span>{{item.total | unit}}</span>
         </div>
       </div>
       <div class="ob-buy">
         <div class="ob-item" v-for="(item, index) in buyList" :key="index">
-          <span>{{item.amount}}</span>
+          <span>{{item.amount | unit}}</span>
           <span>{{item.price}}</span>
-          <span>{{item.total}}</span>
+          <span>{{item.total | unit}}</span>
         </div>
       </div>
     </div>
@@ -27,53 +27,62 @@
 
 <script>
 import { mapState } from 'vuex'
+import storage from '@/scripts/storage'
+import BigNumber from 'bignumber.js'
 export default {
+  data() {
+    return {
+      orders: []
+    }
+  },
   computed: {
     ...mapState({
       curPair: state => state.curPair,
     }),
     buyList() {
-      return [
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-      ]
+      const list = []
+      this.orders.forEach(e => {
+        if (e.returnValues[0] !== this.$gamma.ethAddr()) {
+          const data = {
+            transactionHash: e.transactionHash,
+            amount: e.returnValues[1],
+            price: (BigNumber(e.returnValues[3]).dividedBy(BigNumber(e.returnValues[1]))).toFixed(),
+            total: e.returnValues[3]
+          }
+          list.push(data)
+        }
+      })
+      return list
     },
     sellList() {
-      return [
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-        { amount: 12, price: 0.4, total: 4.8 },
-      ]
+      const list = []
+      this.orders.forEach(e => {
+        if (e.returnValues[0] === this.$gamma.ethAddr()) {
+          const data = {
+            transactionHash: e.transactionHash,
+            amount: e.returnValues[3],
+            price: (BigNumber(e.returnValues[1]).dividedBy(BigNumber(e.returnValues[3]))).toFixed(),
+            total: e.returnValues[1]
+          }
+          list.push(data)
+        }
+      })
+      return list
     }
-  }
+  },
+  created() {
+    this.$eventBus.$on('addOrder', this.onAddOrder)
+    this.onAddOrder()
+  },
+  destroyed() {
+    this.$eventBus.$off('addOrder')
+  },
+  methods: {
+    onAddOrder() {
+      this.orders = storage.getOrders()
+      console.log(this.orders)
+    }
+  },
 }
 </script>
 
