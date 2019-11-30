@@ -1,10 +1,10 @@
 <template>
   <el-dialog :visible.sync="visible" :append-to-body="true" class="tr" width="500px">
-    <div slot="title">{{tradeInfo.title}}</div>
+    <div slot="title">{{title}}</div>
     <el-form class="tr-form" label-position="top" :model="form">
       <el-form-item
         label="Order"
-      >{{tradeInfo.amount}} {{curPair.coin}}, {{tradeInfo.price}} {{curPair.coin}}/{{curPair.base}}</el-form-item>
+      >{{amount | unit}} {{curPair.coin}}, {{price}} {{curPair.coin}}/{{curPair.base}}</el-form-item>
       <el-form-item label="Amount" prop="amount">
         <el-input v-model="form.amount">
           <span slot="append">{{curPair.coin}}</span>
@@ -28,12 +28,13 @@
 import { mapState } from 'vuex'
 import BigNumber from 'bignumber.js'
 import NotifyHash from '@/components/popup/NotifyHash'
+import UserOrder from '@/scripts/userOrder'
 export default {
   components: { NotifyHash },
   data() {
     return {
       visible: false,
-      order: {},
+      userOrder: null,
       form: {
         amount: '',
       },
@@ -44,36 +45,28 @@ export default {
       account: state => state.account,
       curPair: state => state.curPair,
     }),
-    tradeInfo() {
-      if (!this.order.transactionHash) return {}
-      const isBuyOrder = this.order.returnValues[0] !== this.$gamma.ethAddr()
-      const amIBuy = !isBuyOrder
-      const title = amIBuy ? 'Buy Order' : 'Sell Order'
-      let price = isBuyOrder
-        ? BigNumber(this.order.returnValues[3]).dividedBy(BigNumber(this.order.returnValues[1]))
-        : BigNumber(this.order.returnValues[1]).dividedBy(BigNumber(this.order.returnValues[3]))
-      price = price.toFixed()
-      let amount = isBuyOrder
-        ? BigNumber(this.order.returnValues[1]).dividedBy(10 ** 18)
-        : BigNumber(this.order.returnValues[3]).dividedBy(10 ** 18)
-      amount = amount.toFixed()
-
-      return {
-        amIBuy,
-        title,
-        price,
-        amount,
-      }
+    title() {
+      if (!this.userOrder) return ''
+      const title = this.userOrder.isBuy() ? 'Sell Order' : 'Buy Order'
+      return title
+    },
+    amount() {
+      if (!this.userOrder) return ''
+      return this.userOrder.amount()
+    },
+    price() {
+      if (!this.userOrder) return ''
+      return this.userOrder.price()
     },
     eth() {
-      if (!this.form.amount || isNaN(this.form.amount)) return ''
-      let eth = BigNumber(this.form.amount).multipliedBy(BigNumber(this.tradeInfo.price))
+      if (!this.form.amount || isNaN(this.form.amount) || !this.userOrder) return ''
+      let eth = BigNumber(this.form.amount).multipliedBy(this.price)
       return eth.toFixed()
     }
   },
   methods: {
     show(options) {
-      this.order = options.order
+      this.userOrder = new UserOrder(options.order)
       this.visible = true
     },
     hide() {
@@ -84,19 +77,19 @@ export default {
         return this.$message({ message: 'Illegal trade', type: 'warning' })
       }
 
-      const amount = this.tradeInfo.amIBuy
-        ? BigNumber(this.eth).multipliedBy(10 ** 18).toFixed()
-        : BigNumber(this.form.amount).multipliedBy(10 ** 18).toFixed()
+      const pay = this.userOrder.isBuy()
+        ? BigNumber(this.form.amount).multipliedBy(10 ** 18).toFixed()
+        : BigNumber(this.eth).multipliedBy(10 ** 18).toFixed()
 
       this.$gamma.dex.methods.buy1(
-        this.order.returnValues[0],
-        this.order.returnValues[1],
-        this.order.returnValues[2],
-        this.order.returnValues[3],
-        this.order.returnValues[4],
-        this.order.returnValues[5],
-        this.order.returnValues[6],
-        amount
+        this.userOrder.tokenGet,
+        this.userOrder.amountGet,
+        this.userOrder.tokenGive,
+        this.userOrder.amountGive,
+        this.userOrder.expires,
+        this.userOrder.clientNonce,
+        this.userOrder.seller,
+        pay
       ).send({ from: this.account })
         .on('transactionHash', hash => {
           this.$refs.notifyHash.show({ hashes: [hash] })
