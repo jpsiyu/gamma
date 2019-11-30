@@ -11,6 +11,8 @@ class Gamma {
       throw new Error(msg)
     }
 
+    window.ethereum.autoRefreshOnNetworkChange = false
+
     const web3 = new Web3(window.ethereum)
     this.dex = new web3.eth.Contract(deploy.DexABI, deploy.DexAddr)
     this.token = new web3.eth.Contract(deploy.Erc20ABI, deploy.Erc20Addr)
@@ -31,12 +33,14 @@ class Gamma {
 
   handleEvent() {
     this.dex.events.OnSell()
-      .on('connected', subscriptionId => {
-        console.log('connected', subscriptionId)
-      })
       .on('data', event => {
         storage.addOrder(event)
         Vue.prototype.$eventBus.$emit('addOrder')
+      })
+
+    this.dex.events.OnBuy()
+      .on('data', event => {
+        console.log('OnBuy', event)
       })
   }
 

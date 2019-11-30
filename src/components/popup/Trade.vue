@@ -20,13 +20,16 @@
       <el-button @click="hide">Cancel</el-button>
       <el-button type="primary" @click="sure">Sure</el-button>
     </div>
+    <NotifyHash ref="notifyHash" />
   </el-dialog>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import BigNumber from 'bignumber.js'
+import NotifyHash from '@/components/popup/NotifyHash'
 export default {
+  components: { NotifyHash },
   data() {
     return {
       visible: false,
@@ -75,6 +78,45 @@ export default {
       if (!this.eth) {
         return this.$message({ message: 'Illegal trade', type: 'warning' })
       }
+
+      const amount = BigNumber(this.form.amount).multipliedBy(10 ** 18).toFixed()
+
+      /*
+      this.$gamma.dex.methods.buy1(
+        this.order.returnValues[0],
+        this.order.returnValues[1],
+        this.order.returnValues[2],
+        this.order.returnValues[3],
+        this.order.returnValues[4],
+        this.order.returnValues[5],
+        this.order.returnValues[6],
+        amount
+      ).estimateGas()
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(this.order.returnValues, amount)
+          console.error(err)
+        })
+      */
+
+      this.$gamma.dex.methods.buy1(
+        this.order.returnValues[0],
+        this.order.returnValues[1],
+        this.order.returnValues[2],
+        this.order.returnValues[3],
+        this.order.returnValues[4],
+        this.order.returnValues[5],
+        this.order.returnValues[6],
+        amount
+      ).send({ from: this.account, gas: 76000000 })
+        .on('transactionHash', hash => {
+          this.$refs.notifyHash.show({ hashes: [hash] })
+        })
+        .on('receipt', receipt => {
+          console.log('receipt', receipt)
+        })
     }
   }
 }
