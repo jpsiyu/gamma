@@ -8,20 +8,31 @@
     </div>
     <div class="ob-book">
       <div class="ob-sell">
-        <div class="ob-item" v-for="(item, index) in sellList" :key="index">
+        <div
+          class="ob-item"
+          v-for="(item, index) in sellList"
+          :key="index"
+          @click="onTrade(item.transactionHash)"
+        >
           <span>{{item.amount | unit}}</span>
           <span>{{item.price}}</span>
           <span>{{item.total | unit}}</span>
         </div>
       </div>
       <div class="ob-buy">
-        <div class="ob-item" v-for="(item, index) in buyList" :key="index">
+        <div
+          class="ob-item"
+          v-for="(item, index) in buyList"
+          :key="index"
+          @click="onTrade(item.transactionHash)"
+        >
           <span>{{item.amount | unit}}</span>
           <span>{{item.price}}</span>
           <span>{{item.total | unit}}</span>
         </div>
       </div>
     </div>
+    <Trade ref="trade" />
   </div>
 </template>
 
@@ -29,7 +40,9 @@
 import { mapState } from 'vuex'
 import storage from '@/scripts/storage'
 import BigNumber from 'bignumber.js'
+import Trade from '@/components/popup/Trade'
 export default {
+  components: { Trade },
   data() {
     return {
       orders: []
@@ -80,6 +93,14 @@ export default {
   methods: {
     onAddOrder() {
       this.orders = storage.getOrders()
+    },
+    onTrade(transactionHash) {
+      const target = this.orders.find(e => {
+        return e.transactionHash === transactionHash
+      })
+      if (target) {
+        this.$refs.trade.show({ order: target })
+      }
     }
   },
 }
