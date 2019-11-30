@@ -80,7 +80,6 @@ export default {
   methods: {
     onAddOrder() {
       this.orders = storage.getOrders()
-      console.log(this.orders)
     }
   },
 }
