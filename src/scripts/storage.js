@@ -37,11 +37,22 @@ const clear = () => {
   save()
 }
 
+const setLanguage = language => {
+  localStorage.setItem('gamma-language', language)
+}
+
+const getLanguage = () => {
+  const result = localStorage.getItem('gamma-language')
+  return result || 'en'
+}
+
 init()
 
 export default {
   getOrders,
   addOrder,
   removeOrder,
-  clear
+  clear,
+  setLanguage,
+  getLanguage
 }

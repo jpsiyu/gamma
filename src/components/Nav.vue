@@ -38,6 +38,7 @@
 
 <script>
 import DepositToken from '@/components/popup/DepositToken'
+import storage from '@/scripts/storage'
 import { mapState } from 'vuex'
 export default {
   components: { DepositToken },
@@ -59,8 +60,8 @@ export default {
       ]
     }
   },
-  mounted() {
-    this.language = this.languageSupport[0]
+  created() {
+    this.initLang()
   },
   methods: {
     handleCommand(item) {
@@ -71,9 +72,18 @@ export default {
       const path = item.coin + '_' + item.base
       this.$router.push({ path }).catch(() => { })
     },
+    initLang() {
+      const lang = storage.getLanguage()
+      this.$i18n.locale = lang
+      const target = this.languageSupport.find(e => {
+        return e.key === lang
+      })
+      this.language = target || this.languageSupport[0]
+    },
     handleLang(lang) {
       this.language = lang
       this.$i18n.locale = lang.key
+      storage.setLanguage(lang.key)
     },
     handleOther() {
       this.$refs.deposit.show()
