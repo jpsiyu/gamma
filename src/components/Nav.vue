@@ -19,6 +19,16 @@
       </el-dropdown>
     </div>
     <div class="nav-right">
+      <el-dropdown @command="handleLang">
+        <span class="nav-lang">{{language.label }}</span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item
+            v-for="item in languageSupport"
+            :key="item.key"
+            :command="item"
+          >{{item.label}}</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <span v-if="account" class="nav-account">{{account}}</span>
       <el-button class="nav-btnLogin" v-else type="success" @click="login">Login</el-button>
     </div>
@@ -33,6 +43,7 @@ export default {
   components: { DepositToken },
   data() {
     return {
+      language: {}
     }
   },
   computed: {
@@ -40,7 +51,16 @@ export default {
       account: state => state.account,
       pairs: state => state.pairs,
       curPair: state => state.curPair,
-    })
+    }),
+    languageSupport() {
+      return [
+        { label: "English", key: 'en' },
+        { label: "中文", key: 'zh-cn' },
+      ]
+    }
+  },
+  mounted() {
+    this.language = this.languageSupport[0]
   },
   methods: {
     handleCommand(item) {
@@ -50,6 +70,10 @@ export default {
       }
       const path = item.coin + '_' + item.base
       this.$router.push({ path }).catch(() => { })
+    },
+    handleLang(lang) {
+      this.language = lang
+      this.$i18n.locale = lang.key
     },
     handleOther() {
       this.$refs.deposit.show()
@@ -100,6 +124,13 @@ export default {
   padding: 0 10px;
   cursor: pointer;
   color: var(--page-text);
+}
+
+.nav-lang {
+  display: inline-block;
+  margin: 0 20px;
+  color: var(--page-text);
+  cursor: pointer;
 }
 
 .nav-icon {

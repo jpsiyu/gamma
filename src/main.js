@@ -22,13 +22,17 @@ import '@/assets/default.css'
  */
 import '@/scripts/filters'
 
+import i18n from './i18n'
+
 Vue.config.productionTip = false
 
 new Vue({
-  store,
-  router,
-  render: h => h(App),
-  created() {
-    document.body.className = 'default'
-  },
+ store,
+ router,
+ render: h => h(App),
+ i18n,
+
+ created() {
+   document.body.className = 'default'
+ }
 }).$mount('#app')
