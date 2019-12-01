@@ -1,14 +1,14 @@
 <template>
   <div class="ba" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.8)">
     <div class="ba-title">
-      <span>Balance</span>
+      <span>{{$t('balance.balance')}}</span>
       <i class="ba-refresh el-icon-refresh" @click="getTokenBalance"></i>
     </div>
     <el-tabs v-model="activeName" @tab-click="handleClick" class="ba-tabs elcustom-tabs">
-      <el-tab-pane label="Deposit" name="deposit">
+      <el-tab-pane :label="$t('balance.deposit')" name="deposit">
         <Deposit :balance="balance" />
       </el-tab-pane>
-      <el-tab-pane label="Withdraw" name="withdraw">
+      <el-tab-pane :label="$t('balance.withdraw')" name="withdraw">
         <Withdraw :balance="balance" />
       </el-tab-pane>
     </el-tabs>

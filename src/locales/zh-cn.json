@@ -1,6 +1,18 @@
 {
   "message": "你好 i18n !!",
   "nav": {
-    "login": "登录"
+    "login": "登录",
+    "other": "其他"
+  },
+  "balance": {
+    "balance": "余额",
+    "deposit": "存款",
+    "withdraw": "取款",
+    "token": "代币",
+    "wallet": "钱包",
+    "gamma": "Gamma",
+    "desc1": "请确认",
+    "desc2": "是您要交易的代币。不同的代币可以取相同的名字",
+    "amount": "数量"
   }
 }

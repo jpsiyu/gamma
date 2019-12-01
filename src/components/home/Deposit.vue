@@ -2,42 +2,39 @@
   <div class="dp">
     <div class="db-part">
       <div class="dp-balance">
-        <span>Token</span>
-        <span>Wallet</span>
-        <span>Gamma</span>
+        <span>{{$t('balance.token')}}</span>
+        <span>{{$t('balance.wallet')}}</span>
+        <span>{{$t('balance.gamma')}}</span>
       </div>
       <div class="dp-balance">
         <span>{{curPair.coin}}</span>
         <span>{{balance.token | unit}}</span>
         <span>{{balance.tokenInDex | unit}}</span>
       </div>
-      <span class="dp-part__title">Deposit {{curPair.coin}}</span>
+      <span class="dp-part__title">{{$t('balance.deposit')}} {{curPair.coin}}</span>
       <div class="dp-inline">
-        <el-input v-model="amountToken" placeholder="Amount"></el-input>
-        <el-button @click="depositToken">Deposit</el-button>
+        <el-input v-model="amountToken" :placeholder="$t('balance.amount')"></el-input>
+        <el-button @click="depositToken">{{$t('balance.deposit')}}</el-button>
       </div>
     </div>
     <div class="dp-part">
       <div class="dp-balance">
-        <span>Token</span>
-        <span>Wallet</span>
-        <span>Gamma</span>
+        <span>{{$t('balance.token')}}</span>
+        <span>{{$t('balance.wallet')}}</span>
+        <span>{{$t('balance.gamma')}}</span>
       </div>
       <div class="dp-balance">
         <span>{{curPair.base}}</span>
         <span>{{balance.eth | unit}}</span>
         <span>{{balance.ethInDex | unit}}</span>
       </div>
-      <span class="dp-part__title">Deposit {{curPair.base}}</span>
+      <span class="dp-part__title">{{$t('balance.deposit')}} {{curPair.base}}</span>
       <div class="dp-inline">
-        <el-input v-model="amountEth" placeholder="Amount"></el-input>
-        <el-button @click="depositEth">Deposit</el-button>
+        <el-input v-model="amountEth" :placeholder="$t('balance.amount')"></el-input>
+        <el-button @click="depositEth">{{$t('balance.deposit')}}</el-button>
       </div>
     </div>
-    <p class="dp-note">
-      Make sure {{curPair.coin}} is the token you actually want to trade.
-      Multiple tokens can share the same name.
-    </p>
+    <p class="dp-note">{{$t('balance.desc1')}} {{curPair.coin}} {{$t('balance.desc2')}}</p>
     <NotifyHash ref="notifyHash" />
   </div>
 </template>

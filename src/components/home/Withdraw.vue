@@ -2,42 +2,39 @@
   <div class="wd">
     <div class="db-part">
       <div class="wd-balance">
-        <span>Token</span>
-        <span>Wallet</span>
-        <span>Gamma</span>
+        <span>{{$t('balance.token')}}</span>
+        <span>{{$t('balance.wallet')}}</span>
+        <span>{{$t('balance.gamma')}}</span>
       </div>
       <div class="wd-balance">
         <span>{{curPair.coin}}</span>
         <span>{{balance.token | unit}}</span>
         <span>{{balance.tokenInDex | unit}}</span>
       </div>
-      <span class="wd-part__title">Widthdraw {{curPair.coin}}</span>
+      <span class="wd-part__title">{{$t('balance.withdraw')}} {{curPair.coin}}</span>
       <div class="wd-inline">
-        <el-input v-model="amountToken" placeholder="Amount"></el-input>
-        <el-button @click="withdrawToken">Widthdraw</el-button>
+        <el-input v-model="amountToken" :placeholder="$t('balance.amount')"></el-input>
+        <el-button @click="withdrawToken">{{$t('balance.withdraw')}}</el-button>
       </div>
     </div>
     <div class="wd-part">
       <div class="wd-balance">
-        <span>Token</span>
-        <span>Wallet</span>
-        <span>Gamma</span>
+        <span>{{$t('balance.token')}}</span>
+        <span>{{$t('balance.wallet')}}</span>
+        <span>{{$t('balance.gamma')}}</span>
       </div>
       <div class="wd-balance">
         <span>{{curPair.base}}</span>
         <span>{{balance.eth | unit}}</span>
         <span>{{balance.ethInDex | unit}}</span>
       </div>
-      <span class="wd-part__title">Widthdraw {{curPair.base}}</span>
+      <span class="wd-part__title">{{$t('balance.withdraw')}} {{curPair.base}}</span>
       <div class="wd-inline">
-        <el-input v-model="amountEth" placeholder="Amount"></el-input>
-        <el-button @click="withdrawEth">Widthdraw</el-button>
+        <el-input v-model="amountEth" :placeholder="$t('balance.amount')"></el-input>
+        <el-button @click="withdrawEth">{{$t('balance.withdraw')}}</el-button>
       </div>
     </div>
-    <p class="wd-note">
-      Make sure {{curPair.coin}} is the token you actually want to trade.
-      Multiple tokens can share the same name.
-    </p>
+    <p class="dp-note">{{$t('balance.desc1')}} {{curPair.coin}} {{$t('balance.desc2')}}</p>
     <NotifyHash ref="notifyHash" />
   </div>
 </template>

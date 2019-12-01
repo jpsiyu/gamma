@@ -14,7 +14,7 @@
             :key="index"
             :command="item"
           >{{item.coin}}</el-dropdown-item>
-          <el-dropdown-item command="other">Other</el-dropdown-item>
+          <el-dropdown-item command="other">{{$t('nav.other')}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>

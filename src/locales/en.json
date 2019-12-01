@@ -1,6 +1,18 @@
 {
   "message": "hello i18n !!",
   "nav": {
-    "login": "Login"
+    "login": "Login",
+    "other": "Other"
+  },
+  "balance": {
+    "balance": "Balance",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "token": "Token",
+    "wallet": "Wallet",
+    "gamma": "Gamma",
+    "desc1": "Make sure",
+    "desc2": "is the token you actually want to trade. Multiple tokens can share the same name.",
+    "amount": "Amount"
   }
 }
