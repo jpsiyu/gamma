@@ -1,11 +1,11 @@
 <template>
   <div class="bs">
-    <span class="bs-title">Buy/Sell</span>
+    <span class="bs-title">{{$t("buySell.buySell")}}</span>
     <el-tabs v-model="activeName" class="bs-tabs elcustom-tabs">
-      <el-tab-pane label="Buy Order" name="buy">
+      <el-tab-pane :label="$t('buySell.buyOrder')" name="buy">
         <Buy />
       </el-tab-pane>
-      <el-tab-pane label="Sell Order" name="sell">
+      <el-tab-pane :label="$t('buySell.sellOrder')" name="sell">
         <Sell />
       </el-tab-pane>
     </el-tabs>

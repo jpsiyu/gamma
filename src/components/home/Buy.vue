@@ -1,26 +1,26 @@
 <template>
   <div class="buy">
     <el-form :model="form" :ref="form" label-position="top">
-      <el-form-item label="Amount to buy" prop="amount">
+      <el-form-item :label="$t('buySell.buyAmount')" prop="amount">
         <el-input v-model="form.amount">
           <span slot="append">{{curPair.coin}}</span>
         </el-input>
       </el-form-item>
-      <el-form-item label="Price" prop="price">
+      <el-form-item :label="$t('buySell.price')" prop="price">
         <el-input v-model="form.price">
           <span slot="append">{{curPair.base}}</span>
         </el-input>
       </el-form-item>
-      <el-form-item label="Total">
+      <el-form-item :label="$t('buySell.total')">
         <el-input v-model="total" readonly></el-input>
       </el-form-item>
-      <el-form-item label="Expires" prop="expires">
+      <el-form-item :label="$t('buySell.expires')" prop="expires">
         <el-input v-model="form.expires">
-          <span slot="append">Blocks</span>
+          <span slot="append">{{$t('buySell.blocks')}}</span>
         </el-input>
       </el-form-item>
     </el-form>
-    <el-button type="success" class="buy-button" @click="buy">Buy Order</el-button>
+    <el-button type="success" class="buy-button" @click="buy">{{$t('buySell.buyOrder')}}</el-button>
     <NotifyHash ref="notifyHash" />
   </div>
 </template>

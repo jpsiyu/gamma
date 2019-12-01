@@ -14,5 +14,16 @@
     "desc1": "请确认",
     "desc2": "是您要交易的代币。不同的代币可以取相同的名字",
     "amount": "数量"
+  },
+  "buySell":{
+    "buySell": "买/卖",
+    "buyOrder": "买单",
+    "sellOrder": "卖单",
+    "buyAmount": "购买数量",
+    "sellAmount": "出售数量",
+    "price": "价格",
+    "total": "总价",
+    "expires": "过期",
+    "blocks": "区块"
   }
 }

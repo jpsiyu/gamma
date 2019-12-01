@@ -14,5 +14,16 @@
     "desc1": "Make sure",
     "desc2": "is the token you actually want to trade. Multiple tokens can share the same name.",
     "amount": "Amount"
+  },
+  "buySell":{
+    "buySell": "Buy/Sell",
+    "buyOrder": "Buy Order",
+    "sellOrder": "Sell Order",
+    "buyAmount": "Amount to buy",
+    "sellAmount": "Amount to sell",
+    "price": "Price",
+    "total": "Total",
+    "expires": "Expires",
+    "blocks": "Blocks"
   }
 }
