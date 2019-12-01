@@ -1,6 +1,6 @@
 <template>
   <div class="ob">
-    <span class="ob-title">Order Book</span>
+    <span class="ob-title">{{$t('orderBook.orderBook')}}</span>
     <div class="ob-pair">
       <span>{{curPair.coin}}</span>
       <span>{{curPair.coin}}/{{curPair.base}}</span>

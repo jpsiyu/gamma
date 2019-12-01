@@ -1,5 +1,9 @@
 {
   "message": "hello i18n !!",
+  "common": {
+    "cancel": "Cancel",
+    "sure": "Sure"
+  },
   "nav": {
     "login": "Login",
     "other": "Other"
@@ -15,7 +19,7 @@
     "desc2": "is the token you actually want to trade. Multiple tokens can share the same name.",
     "amount": "Amount"
   },
-  "buySell":{
+  "buySell": {
     "buySell": "Buy/Sell",
     "buyOrder": "Buy Order",
     "sellOrder": "Sell Order",
@@ -25,5 +29,9 @@
     "total": "Total",
     "expires": "Expires",
     "blocks": "Blocks"
+  },
+  "orderBook": {
+    "orderBook": "Order Book",
+    "order": "order"
   }
 }

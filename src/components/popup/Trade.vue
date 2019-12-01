@@ -3,9 +3,9 @@
     <div slot="title">{{title}}</div>
     <el-form class="tr-form" label-position="top" :model="form">
       <el-form-item
-        label="Order"
+        :label="$t('orderBook.order')"
       >{{amount | unit}} {{curPair.coin}}, {{price}} {{curPair.coin}}/{{curPair.base}}</el-form-item>
-      <el-form-item label="Amount" prop="amount">
+      <el-form-item :label="$t('balance.amount')" prop="amount">
         <el-input v-model="form.amount">
           <span slot="append">{{curPair.coin}}</span>
         </el-input>
@@ -17,8 +17,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer">
-      <el-button @click="hide">Cancel</el-button>
-      <el-button type="primary" @click="sure">Sure</el-button>
+      <el-button @click="hide">{{$t('common.cancel')}}</el-button>
+      <el-button type="primary" @click="sure">{{$t('common.sure')}}</el-button>
     </div>
     <NotifyHash ref="notifyHash" />
   </el-dialog>
@@ -47,7 +47,7 @@ export default {
     }),
     title() {
       if (!this.userOrder) return ''
-      const title = this.userOrder.isBuy() ? 'Sell Order' : 'Buy Order'
+      const title = this.userOrder.isBuy() ? this.$t('buySell.sellOrder') : this.$t('buySell.buyOrder')
       return title
     },
     amount() {

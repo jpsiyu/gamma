@@ -1,5 +1,9 @@
 {
   "message": "你好 i18n !!",
+  "common": {
+    "cancel": "Cancel",
+    "sure": "Sure"
+  },
   "nav": {
     "login": "登录",
     "other": "其他"
@@ -25,5 +29,9 @@
     "total": "总价",
     "expires": "过期",
     "blocks": "区块"
+  },
+  "orderBook": {
+    "orderBook": "挂单",
+    "order": "挂单"
   }
 }
