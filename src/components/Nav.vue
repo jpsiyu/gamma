@@ -30,7 +30,7 @@
         </el-dropdown-menu>
       </el-dropdown>
       <span v-if="account" class="nav-account">{{account}}</span>
-      <el-button class="nav-btnLogin" v-else type="success" @click="login">Login</el-button>
+      <el-button class="nav-btnLogin" v-else type="success" @click="login">{{$t('nav.login')}}</el-button>
     </div>
     <DepositToken ref="deposit" />
   </div>
