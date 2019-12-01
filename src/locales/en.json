@@ -33,5 +33,17 @@
   "orderBook": {
     "orderBook": "Order Book",
     "order": "order"
+  },
+  "priceChart": {
+    "priceChart": "Price Chart"
+  },
+  "yourTx": {
+    "yourTx": "Your Transactions"
+  },
+  "tradeVolumn": {
+    "tradeVolumn": "Trade & Volumn"
+  },
+  "updates": {
+    "updates": "Updates"
   }
 }

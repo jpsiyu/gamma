@@ -1,6 +1,6 @@
 <template>
   <div class="tv">
-    <span>Trades & Volumns</span>
+    <span>{{$t('tradeVolumn.tradeVolumn')}}</span>
   </div>
 </template>
 

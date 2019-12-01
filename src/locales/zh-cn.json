@@ -33,5 +33,17 @@
   "orderBook": {
     "orderBook": "挂单",
     "order": "挂单"
+  },
+  "priceChart": {
+    "priceChart": "价格图表"
+  },
+  "yourTx": {
+    "yourTx": "您的交易"
+  },
+  "tradeVolumn": {
+    "tradeVolumn": "交易与交易量"
+  },
+  "updates": {
+    "updates": "最新消息"
   }
 }

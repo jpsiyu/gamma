@@ -1,6 +1,6 @@
 <template>
   <div class="ts">
-    <span>Your Transactions</span>
+    <span>{{$t('yourTx.yourTx')}}</span>
   </div>
 </template>
 

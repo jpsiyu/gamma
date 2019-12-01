@@ -1,6 +1,6 @@
 <template>
   <div class="up">
-    <span>Updates</span>
+    <span>{{$t('updates.updates')}}</span>
   </div>
 </template>
 

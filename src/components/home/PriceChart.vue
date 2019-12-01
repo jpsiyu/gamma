@@ -1,6 +1,6 @@
 <template>
   <div class="pc">
-    <span>Price Chart</span>
+    <span>{{$t('priceChart.priceChart')}}</span>
   </div>
 </template>
 
