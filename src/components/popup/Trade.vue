@@ -21,6 +21,10 @@
       <el-button type="primary" @click="sure">{{$t('common.sure')}}</el-button>
     </div>
     <NotifyHash ref="notifyHash" />
+     <el-pagination
+    layout="total, prev, pager, next"
+    :total="1000">
+  </el-pagination>
   </el-dialog>
 </template>
 

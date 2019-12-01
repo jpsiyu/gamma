@@ -1,8 +1,8 @@
 {
   "message": "你好 i18n !!",
   "common": {
-    "cancel": "Cancel",
-    "sure": "Sure"
+    "cancel": "取消",
+    "sure": "确定"
   },
   "nav": {
     "login": "登录",
